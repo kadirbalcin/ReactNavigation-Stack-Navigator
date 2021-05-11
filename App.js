@@ -1,14 +1,39 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {Component} from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { createAppContainer} from "react-navigation";
+import { createStackNavigator} from "react-navigation-stack";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+class App extends Component {
+
+  constructor() {
+    super();
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Detail')}><Text>Stack Navigator Example</Text></TouchableOpacity>
+        <StatusBar style="auto" />
+      </View>
+    );
+  }
+}
+
+class Detail extends Component {
+
+  constructor() {
+    super();
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>Detail Page</Text>
+        <StatusBar style="auto" />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -19,3 +44,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+const AppNavigator = createStackNavigator({
+
+  Home:{
+    screen:App
+  },
+  Detail:{
+    screen:Detail
+  }
+
+});
+
+export default createAppContainer(AppNavigator)
